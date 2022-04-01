@@ -1,0 +1,20 @@
+# Switch to zsh if it exists
+if [ -n "$ZSH_VERSION" ]; then
+  zsh
+fi
+
+# Set vi mode
+set -o vi
+
+# Define function to get the current git branch
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+# Set PS1
+export PS1='\[\e[34m\][\W]\[\e[0m\]\[\e[31m\]$(parse_git_branch)\[\e[0m\]\[\e[90m\]$\[\e[0m\] '
+
+# Set nvim as default editor
+alias vim='nvim'
+export EDITOR='nvim'
+export VISUAL='nvim'

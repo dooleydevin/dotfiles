@@ -19,7 +19,7 @@ zsh if `$ZSH_VERSION` is set.
 
 ### Theming
 The color schemes used in these configurations work best when
-your terminal emulator uses a light theme. I find the higher-contrast
+your terminal emulator uses a light theme. I find the higher contrast
 to be easier on the eyes, especially when outside.
 I'm currently using the `Material` color scheme I found on
 <https://iterm2colorschemes.com>, a copy of which exists at

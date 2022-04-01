@@ -22,7 +22,7 @@ The color schemes used in these configurations work best when
 your terminal emulator uses a light theme. I find the higher-contrast
 to be easier on the eyes, especially when outside.
 I'm currently using the `Material` color scheme I found on
-<iterm2colorschemes.com>, a copy of which exists at
+<https://iterm2colorschemes.com>, a copy of which exists at
 `./iterm2/material.itermcolors`.
 
 I don't have any plans to setup dark-mode theming at this time.

@@ -25,12 +25,13 @@ git clone https://github.com/jeffreytse/zsh-vi-mode $ZSH_CUSTOM/plugins/zsh-vi-m
 ln -s $HOME/.dotfiles/zsh/zshrc $HOME/.zshrc
 ln -s $HOME/.dotfiles/zsh/p10k.zsh $HOME/.p10k.zsh
 
-# neovim
+# vim/neovim (use the same configuration)
 ## Install vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-## Link neovim config
+## Link vim configurations
 ln -s $HOME/.dotfiles/neovim/init.vim $HOME/.config/nvim/init.vim
+ln -s $HOME/.dotfiles/vim/vimrc $HOME/.vimrc
 
 ## Install plugins with vim-plug
 vim +'PlugInstall --sync' +qall

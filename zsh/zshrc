@@ -23,9 +23,12 @@ plugins+=(zsh-vi-mode)
 source $ZSH/oh-my-zsh.sh
 source ~/.p10k.zsh
 
-# Aliases
-alias vim="nvim"
-
 # Environment
-EDITOR="nvim"
-VISUAL="nvim"
+EDITOR="vim"
+VISUAL="vim"
+
+# Aliases
+if command -v vim &> /dev/null
+then
+    alias vim="nvim"
+fi

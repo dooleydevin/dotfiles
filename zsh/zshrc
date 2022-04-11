@@ -26,9 +26,3 @@ source ~/.p10k.zsh
 # Environment
 EDITOR="vim"
 VISUAL="vim"
-
-# Aliases
-if command -v vim &> /dev/null
-then
-    alias vim="nvim"
-fi

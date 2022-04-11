@@ -17,9 +17,3 @@ export PS1='\[\e[34m\][\W]\[\e[0m\]\[\e[31m\]$(parse_git_branch)\[\e[0m\]\[\e[90
 # Set vim as default editor
 export EDITOR='vim'
 export VISUAL='vim'
-
-# Use nvim instead of vim if available
-if command -v vim &> /dev/null
-then
-  alias vim="nvim"
-fi

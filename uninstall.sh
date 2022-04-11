@@ -14,5 +14,5 @@ rm -rf $HOME/.oh-my-zsh
 rm $HOME/.zshrc
 rm $HOME/.p10k.zsh
 
-# Delete neovim configuration
-rm $HOME/.config/nvim/init.vim
+# Delete vim configuration
+rm $HOME/.vimrc

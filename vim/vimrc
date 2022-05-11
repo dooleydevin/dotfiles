@@ -7,6 +7,7 @@ Plug 'airblade/vim-gitgutter' " Shows staged/new/deleted lines
 Plug 'NLKNguyen/papercolor-theme' " Main theme
 Plug 'vim-airline/vim-airline' " Status bar
 Plug 'vim-airline/vim-airline-themes' " Has papercolor theme for status bar
+Plug 'dense-analysis/ale' " Syntax checking
 call plug#end()
 
 " Turn on syntax highlighting

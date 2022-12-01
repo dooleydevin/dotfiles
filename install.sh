@@ -1,5 +1,7 @@
 #!/bin/bash
 
+DIR_NAME="$( dirname -- "$0"; )"
+
 # git
 git config --global user.name "Devin Dooley"
 git config --global user.email "dooleydevin@github.com"
@@ -7,8 +9,8 @@ git config --global core.editor vim
 git config --global pull.rebase false
 
 # bash
-ln -sf "$HOME/.dotfiles/bash/bashrc" "$HOME/.bashrc"
-ln -sf "$HOME/.dotfiles/bash/bash_profile" "$HOME/.bash_profile"
+ln -sf "$DIR_NAME/bash/bashrc" "$HOME/.bashrc"
+ln -sf "$DIR_NAME/bash/bash_profile" "$HOME/.bash_profile"
 
 # zsh
 ## Install oh-my-zsh
@@ -26,8 +28,8 @@ rm -rf "$ZSH_CUSTOM/plugins/zsh-vi-mode"
 git clone https://github.com/jeffreytse/zsh-vi-mode "$ZSH_CUSTOM/plugins/zsh-vi-mode"
 
 ## Link zsh config
-ln -sf "$HOME/.dotfiles/zsh/zshrc" "$HOME/.zshrc"
-ln -sf "$HOME/.dotfiles/zsh/p10k.zsh" "$HOME/.p10k.zsh"
+ln -sf "$DIR_NAME/zsh/zshrc" "$HOME/.zshrc"
+ln -sf "$DIR_NAME/zsh/p10k.zsh" "$HOME/.p10k.zsh"
 
 # vim
 ## Install vim-plug
@@ -35,5 +37,5 @@ rm -rf ~/.vim/autoload/plug.vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 ## Link vimrc
-ln -sf "$HOME/.dotfiles/vim/vimrc" "$HOME/.vimrc"
+ln -sf "$DIR_NAME/vim/vimrc" "$HOME/.vimrc"
 

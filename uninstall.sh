@@ -15,4 +15,5 @@ rm "$HOME/.zshrc"
 rm "$HOME/.p10k.zsh"
 
 # Delete vim configuration
+rm -rf "$HOME/.vim"
 rm "$HOME/.vimrc"

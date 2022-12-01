@@ -1,26 +1,27 @@
 # Dotfiles
 ## Installation
-It's assumed that this repository is cloned to $HOME/.dotfiles.
-You can do so with:
-```
-git clone git@github.com:dooleydevin/dotfiles .dotfiles
-```
+Run the `install.sh` script to get up-and-running.
+Make sure you want to use all of the dotfiles in the
+repo before running the installation script, as it
+will overwrite any dotfiles it finds without warning.
 
-Then, just run the `install.sh` script to get up-and-running:
-```
-.dotfiles/install.sh
-```
+The installation script will symlink the files from this
+repository into the home directory.
+
+Re-running `install.sh` is a safe operation if the
+repository is moved and symlinks are broken.
 
 ## Conventions
 ### Shell
-This configuration will try to use zsh if it is available.
-A minimal `.bashrc` is included, but it will attempt to open
-zsh if `$ZSH_VERSION` is set.
+These dotfiles assume you are using `zsh` as your shell.
+A minimalistic `.bashrc` file is included, but it is
+not actively maintained.
 
 ### Theming
 The color schemes used in these configurations work best when
 your terminal emulator uses a light theme. I find the higher contrast
 to be easier on the eyes, especially when outside.
+
 I'm currently using the `Material` color scheme I found on
 <https://iterm2colorschemes.com>, a copy of which exists at
 `./iterm2/material.itermcolors`.

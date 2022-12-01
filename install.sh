@@ -18,7 +18,7 @@ export ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom"
 
 ## Install powerlevel10k plugin
 rm -rf "$ZSH_CUSTOM/themes/powerlevel10k"
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/.oh-my-zsh/custom/themes/powerlevel10k"
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k"
 
 ## Install zsh-vi-mode plugin
 rm -rf "$ZSH_CUSTOM/plugins/zsh-vi-mode"
@@ -36,5 +36,3 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 ## Link vimrc
 ln -sf "$HOME/.dotfiles/vim/vimrc" "$HOME/.vimrc"
 
-## Install plugins with vim-plug
-vim +'PlugInstall --sync' +qall

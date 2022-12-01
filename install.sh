@@ -6,8 +6,8 @@ git config --global user.email "dooleydevin@github.com"
 git config --global core.editor vim
 
 # bash
-ln -s $HOME/.dotfiles/bash/bashrc $HOME/.bashrc
-ln -s $HOME/.dotfiles/bash/bash_profile $HOME/.bash_profile
+ln -sf $HOME/.dotfiles/bash/bashrc $HOME/.bashrc
+ln -sf $HOME/.dotfiles/bash/bash_profile $HOME/.bash_profile
 
 # zsh
 ## Install oh-my-zsh
@@ -22,15 +22,15 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 git clone https://github.com/jeffreytse/zsh-vi-mode $ZSH_CUSTOM/plugins/zsh-vi-mode
 
 ## Link zsh config
-ln -s $HOME/.dotfiles/zsh/zshrc $HOME/.zshrc
-ln -s $HOME/.dotfiles/zsh/p10k.zsh $HOME/.p10k.zsh
+ln -sf $HOME/.dotfiles/zsh/zshrc $HOME/.zshrc
+ln -sf $HOME/.dotfiles/zsh/p10k.zsh $HOME/.p10k.zsh
 
 # vim
 ## Install vim-plug
 sh -c 'curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 ## Link vimrc
-ln -s $HOME/.dotfiles/vim/vimrc $HOME/.vimrc
+ln -sf $HOME/.dotfiles/vim/vimrc $HOME/.vimrc
 
 ## Install plugins with vim-plug
 vim +'PlugInstall --sync' +qall

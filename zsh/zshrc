@@ -26,3 +26,11 @@ source ~/.p10k.zsh
 # Environment
 EDITOR="vim"
 VISUAL="vim"
+
+# Setup PATH
+export PATH=$PATH:$(go env GOPATH)/bin
+
+# Configure rbenv
+if [ "$(command -v rbenv)" ]; then
+  eval "$(rbenv init -)"
+fi

@@ -1,6 +1,7 @@
 #!/bin/bash
 
-DIR_NAME="$( dirname -- "$0"; )"
+# Sourced from https://stackoverflow.com/questions/59895/how-do-i-get-the-directory-where-a-bash-script-is-located-from-within-the-script
+DIR_NAME="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 # git
 git config --global user.name "Devin Dooley"

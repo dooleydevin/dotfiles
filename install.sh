@@ -4,6 +4,7 @@
 git config --global user.name "Devin Dooley"
 git config --global user.email "dooleydevin@github.com"
 git config --global core.editor vim
+git config --global pull.rebase false
 
 # bash
 ln -sf "$HOME/.dotfiles/bash/bashrc" "$HOME/.bashrc"

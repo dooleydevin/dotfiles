@@ -34,3 +34,8 @@ export PATH=$PATH:$(go env GOPATH)/bin
 if [ "$(command -v rbenv)" ]; then
   eval "$(rbenv init -)"
 fi
+
+# Configure copilot CLI
+if [ "$(command -v github-copilot-cli)" ]; then
+  eval "$(github-copilot-cli alias -- "$0")"
+fi

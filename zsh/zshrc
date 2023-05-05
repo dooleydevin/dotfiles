@@ -28,7 +28,9 @@ EDITOR="vim"
 VISUAL="vim"
 
 # Setup PATH
-export PATH=$PATH:$(go env GOPATH)/bin
+if [ "$(command -v go)" ]; then
+  export PATH=$PATH:$(go env GOPATH)/bin
+fi
 
 # Configure rbenv
 if [ "$(command -v rbenv)" ]; then

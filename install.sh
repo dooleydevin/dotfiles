@@ -39,4 +39,4 @@ curl -fsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.
 
 ## Link vimrc
 ln -sf "$DIR_NAME/vim/vimrc" "$HOME/.vimrc"
-vim -E -s -u "$HOME/.vimrc" +'PlugInstall --sync' +qa
+vim -es -u "$HOME/.vimrc" -i NONE -c "PlugInstall" -c "qa"

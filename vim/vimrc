@@ -15,7 +15,7 @@ syntax on
 
 " Customize colorscheme
 set background=light
-colorscheme PaperColor
+silent! colorscheme PaperColor
 
 " Customize airline
 let g:airline_theme='papercolor'

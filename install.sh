@@ -1,56 +1,61 @@
 #!/bin/bash
+set -euo pipefail
 
-# Sourced from https://stackoverflow.com/questions/59895/how-do-i-get-the-directory-where-a-bash-script-is-located-from-within-the-script
-DIR_NAME="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+DIR_NAME="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
-GIT_INSTALLED=$(command -v git)
-VIM_INSTALLED=$(command -v vim)
-ZSH_INSTALLED=$(command -v zsh)
-
-# bash
-ln -sf "$DIR_NAME/bash/bashrc" "$HOME/.bashrc"
-ln -sf "$DIR_NAME/bash/bash_profile" "$HOME/.bash_profile"
-
-# zsh
-if [ -n "$ZSH_INSTALLED" ]; then
-  ## Install oh-my-zsh
-  rm -rf "$HOME/.oh-my-zsh"
-  git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh" --quiet
-  export ZSH="${HOME}/.oh-my-zsh"
-  export ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom"
-
-  ## Install powerlevel10k plugin
-  rm -rf "$ZSH_CUSTOM/themes/powerlevel10k"
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k" --quiet
-
-  ## Install zsh-vi-mode plugin
-  rm -rf "$ZSH_CUSTOM/plugins/zsh-vi-mode"
-  git clone https://github.com/jeffreytse/zsh-vi-mode "$ZSH_CUSTOM/plugins/zsh-vi-mode" --quiet
-
-  ## Link zsh config
-  ln -sf "$DIR_NAME/zsh/zshrc" "$HOME/.zshrc"
-  ln -sf "$DIR_NAME/zsh/p10k.zsh" "$HOME/.p10k.zsh"
-fi
-
-# git
-if [ -n "$GIT_INSTALLED" ]; then
-  git config --global user.name "Devin Dooley"
-  git config --global user.email "dooleydevin@github.com"
-  git config --global pull.rebase false
-
-  if [ -n "$VIM_INSTALLED" ]; then
-    git config --global core.editor vim
+# ── Detect environment profile ────────────────────────────────────────
+detect_profile() {
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    if [[ "$(uname -m)" == "arm64" ]]; then
+      echo "macos-aarch64"
+    else
+      echo "macos-x86_64"
+    fi
+  elif [[ -n "${CODESPACES:-}" ]] || [[ -n "${REMOTE_CONTAINERS:-}" ]] || [[ -f "/.dockerenv" ]]; then
+    echo "devcontainer"
+  else
+    echo "linux"
   fi
-fi
+}
 
-# vim
-if [ -n "$VIM_INSTALLED" ]; then
-  ## Install vim-plug
-  rm -rf ~/.vim/autoload/plug.vim
-  curl -fsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# ── Install Nix (single-user, no daemon) ──────────────────────────────
+install_nix() {
+  if command -v nix &>/dev/null; then
+    echo "Nix is already installed."
+    return
+  fi
 
-  ## Link vimrc
-  ln -sf "$DIR_NAME/vim/vimrc" "$HOME/.vimrc"
-  vim -es -u "$HOME/.vimrc" -i NONE -c "PlugInstall" -c "qa"
-fi
+  echo "Installing Nix in single-user mode..."
+  sh <(curl -L https://nixos.org/nix/install) --no-daemon
 
+  # shellcheck disable=SC1091
+  if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
+    . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+  fi
+}
+
+# ── Enable flakes ─────────────────────────────────────────────────────
+enable_flakes() {
+  local nix_conf="$HOME/.config/nix/nix.conf"
+  mkdir -p "$(dirname "$nix_conf")"
+  if ! grep -q "experimental-features" "$nix_conf" 2>/dev/null; then
+    echo "experimental-features = nix-command flakes" >>"$nix_conf"
+  fi
+}
+
+# ── Main ──────────────────────────────────────────────────────────────
+PROFILE="$(detect_profile)"
+echo "Detected profile: $PROFILE"
+
+install_nix
+enable_flakes
+
+echo "Applying home-manager configuration for profile: $PROFILE ..."
+nix run home-manager/release-24.11 -- switch --flake "$DIR_NAME#$PROFILE"
+
+echo ""
+echo "Installation complete!"
+echo ""
+echo "To use nix-managed zsh as your login shell:"
+echo "  echo \$HOME/.nix-profile/bin/zsh | sudo tee -a /etc/shells"
+echo "  chsh -s \$HOME/.nix-profile/bin/zsh"

@@ -51,7 +51,7 @@ install_nix
 enable_flakes
 
 echo "Applying home-manager configuration for profile: $PROFILE ..."
-nix run home-manager/release-24.11 -- switch --flake "$DIR_NAME#$PROFILE"
+nix run home-manager/release-24.11 -- switch -b backup --flake "$DIR_NAME#$PROFILE"
 
 echo ""
 echo "Installation complete!"

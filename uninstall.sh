@@ -10,16 +10,15 @@ if command -v home-manager &>/dev/null; then
 fi
 nix profile remove '.*home-manager.*' 2>/dev/null || true
 
-# ── Remove managed config files ──────────────────────────────────────
+# ── Remove managed config files and restore backups ──────────────────
 echo "Removing config files..."
-rm -f "$HOME/.bashrc"
-rm -f "$HOME/.bash_profile"
-rm -f "$HOME/.profile"
-rm -f "$HOME/.zshrc"
-rm -f "$HOME/.zshenv"
-rm -f "$HOME/.p10k.zsh"
-rm -f "$HOME/.vimrc"
-rm -f "$HOME/.gitconfig"
+for f in .bashrc .bash_profile .profile .zshrc .zshenv .p10k.zsh .vimrc .gitconfig; do
+  rm -f "$HOME/$f"
+  if [ -f "$HOME/$f.backup" ]; then
+    mv "$HOME/$f.backup" "$HOME/$f"
+    echo "Restored $f from backup"
+  fi
+done
 
 # ── Remove oh-my-zsh directories ─────────────────────────────────────
 rm -rf "$HOME/.oh-my-zsh"

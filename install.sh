@@ -26,7 +26,7 @@ install_nix() {
   fi
 
   echo "Installing Nix in single-user mode..."
-  sh <(curl -L https://nixos.org/nix/install) --no-daemon
+  sh <(curl -L https://nixos.org/nix/install) --no-daemon --no-channel-add
 
   # shellcheck disable=SC1091
   if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
@@ -50,8 +50,17 @@ echo "Detected profile: $PROFILE"
 install_nix
 enable_flakes
 
-echo "Applying home-manager configuration for profile: $PROFILE ..."
-nix run home-manager/release-24.11 -- switch -b backup --flake "$DIR_NAME#$PROFILE"
+echo "Building home-manager configuration for profile: $PROFILE ..."
+
+nix_build_flags=(--no-link --print-out-paths)
+if [[ "$PROFILE" == "devcontainer" ]]; then
+  nix_build_flags+=(--impure)
+fi
+
+ACTIVATION="$(nix build "${nix_build_flags[@]}" "$DIR_NAME#homeConfigurations.$PROFILE.activationPackage")"
+
+echo "Activating configuration..."
+HOME_MANAGER_BACKUP_EXT=backup "$ACTIVATION/activate"
 
 echo ""
 echo "Installation complete!"

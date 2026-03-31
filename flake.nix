@@ -46,12 +46,17 @@
           extraModules = [ ./home/linux.nix ];
         };
 
-        "devcontainer" = mkHome {
-          system = "x86_64-linux";
-          username = "codespace";
-          homeDirectory = "/home/codespace";
-          extraModules = [ ./home/devcontainer.nix ];
-        };
+        "devcontainer" =
+          let
+            envUser = builtins.getEnv "USER";
+            envHome = builtins.getEnv "HOME";
+          in
+          mkHome {
+            system = "x86_64-linux";
+            username = if envUser != "" then envUser else "codespace";
+            homeDirectory = if envHome != "" then envHome else "/home/codespace";
+            extraModules = [ ./home/devcontainer.nix ];
+          };
       };
     };
 }

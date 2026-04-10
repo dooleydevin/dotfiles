@@ -5,5 +5,7 @@
 {{-   $environment = "devcontainer" -}}
 {{- end -}}
 
+sourceDir = {{ .chezmoi.sourceDir | quote }}
+
 [data]
   environment = {{ $environment | quote }}

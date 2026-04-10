@@ -1,7 +1,15 @@
 #!/bin/bash
 set -euo pipefail
 
+{{ if eq .chezmoi.os "darwin" -}}
 # Brewfile hash: {{ include "Brewfile" | sha256sum }}
 
 echo "Installing Homebrew packages..."
 brew bundle --file="{{ .chezmoi.sourceDir }}/Brewfile"
+{{ else -}}
+# Aptfile hash: {{ include "Aptfile" | sha256sum }}
+
+echo "Installing apt packages..."
+sudo apt-get update -qq
+sudo apt-get install -y -qq {{ range (include "Aptfile" | trim | splitList "\n") }}{{ . }} {{ end }}
+{{ end -}}

@@ -1,12 +1,10 @@
-# Homebrew
 {{ if eq .chezmoi.os "darwin" -}}
+# Homebrew
 {{ if eq .chezmoi.arch "arm64" -}}
 eval "$(/opt/homebrew/bin/brew shellenv)"
 {{ else -}}
 eval "$(/usr/local/bin/brew shellenv)"
 {{ end -}}
-{{ else -}}
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{ end -}}
 
 # Set vi mode

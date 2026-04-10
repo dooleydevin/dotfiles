@@ -1,0 +1,6 @@
+curl
+wget
+ripgrep
+fd-find
+jq
+htop

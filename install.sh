@@ -32,14 +32,22 @@ source_brew() {
 }
 
 # ── Main ──────────────────────────────────────────────────────────────
-install_homebrew
-source_brew
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  install_homebrew
+  source_brew
 
-echo "Installing chezmoi..."
-brew install chezmoi
+  echo "Installing chezmoi..."
+  brew install chezmoi
 
-echo "Applying dotfiles..."
-chezmoi init --source="$SCRIPT_DIR" --apply
+  echo "Applying dotfiles..."
+  chezmoi init --source="$SCRIPT_DIR" --apply
+else
+  echo "Installing chezmoi..."
+  sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
+
+  echo "Applying dotfiles..."
+  "$HOME/.local/bin/chezmoi" init --source="$SCRIPT_DIR" --apply
+fi
 
 echo ""
 echo "Installation complete! Restart your shell or run: exec zsh"

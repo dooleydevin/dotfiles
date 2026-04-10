@@ -1,0 +1,30 @@
+#!/bin/bash
+set -euo pipefail
+
+CUSTOM_DIR="$HOME/.oh-my-zsh-custom"
+
+echo "Setting up Oh-My-Zsh custom plugins and themes..."
+
+mkdir -p "$CUSTOM_DIR/themes" "$CUSTOM_DIR/plugins"
+
+{{ if eq .chezmoi.os "darwin" -}}
+BREW_PREFIX="$(brew --prefix)"
+
+# Powerlevel10k theme
+ln -sfn "$BREW_PREFIX/share/powerlevel10k" "$CUSTOM_DIR/themes/powerlevel10k"
+
+# zsh-vi-mode plugin
+ln -sfn "$BREW_PREFIX/share/zsh-vi-mode" "$CUSTOM_DIR/plugins/zsh-vi-mode"
+{{ else -}}
+# Powerlevel10k theme
+if [ ! -d "$CUSTOM_DIR/themes/powerlevel10k" ]; then
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+    "$CUSTOM_DIR/themes/powerlevel10k"
+fi
+
+# zsh-vi-mode plugin
+if [ ! -d "$CUSTOM_DIR/plugins/zsh-vi-mode" ]; then
+  git clone --depth=1 https://github.com/jeffreytse/zsh-vi-mode.git \
+    "$CUSTOM_DIR/plugins/zsh-vi-mode"
+fi
+{{ end -}}

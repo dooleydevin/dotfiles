@@ -3,4 +3,5 @@ install.sh
 uninstall.sh
 Brewfile
 Brewfile.lock.json
+Aptfile
 iterm2/**

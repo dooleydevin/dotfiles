@@ -1,0 +1,9 @@
+#!/bin/bash
+set -euo pipefail
+
+{{ if eq .chezmoi.os "darwin" -}}
+echo "Importing iTerm2 color scheme..."
+open "{{ .chezmoi.sourceDir }}/iterm2/material.itermcolors"
+{{ else -}}
+echo "Skipping iTerm2 setup (not macOS)."
+{{ end -}}

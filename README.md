@@ -46,7 +46,6 @@ Environment detection is handled by `.chezmoi.toml.tmpl` and stored as `{{ .envi
 | `run_once_before_install-oh-my-zsh.sh` | Installs Oh-My-Zsh |
 | `run_once_after_setup-zsh-plugins.sh` | Symlinks zsh plugins into oh-my-zsh-custom |
 | `run_once_after_install-vim-plug.sh` | Installs vim-plug and vim plugins |
-| `iterm2/material.itermcolors` | iTerm2 color scheme (Material light) |
 
 ## Packages
 

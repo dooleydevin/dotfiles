@@ -1,0 +1,6 @@
+README.md
+install.sh
+uninstall.sh
+Brewfile
+Brewfile.lock.json
+iterm2/**

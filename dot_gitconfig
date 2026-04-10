@@ -1,0 +1,9 @@
+[user]
+    name = Devin Dooley
+    email = dooleydevin@github.com
+
+[pull]
+    rebase = false
+
+[core]
+    editor = vim

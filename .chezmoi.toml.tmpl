@@ -1,0 +1,9 @@
+{{- $environment := "linux" -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $environment = "macos" -}}
+{{- else if or (env "CODESPACES") (env "REMOTE_CONTAINERS") (stat "/.dockerenv") -}}
+{{-   $environment = "devcontainer" -}}
+{{- end -}}
+
+[data]
+  environment = {{ $environment | quote }}

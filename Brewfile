@@ -1,5 +1,6 @@
 # Applications
 cask "iterm2"
+cask "visual-studio-code"
 
 # Core CLI utilities
 brew "curl"
